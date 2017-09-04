@@ -5,11 +5,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.andro.indieschool.reclistapp.R;
 import com.andro.indieschool.reclistapp.main.item.MainItemAdapter;
+import com.andro.indieschool.reclistapp.model.Category;
 import com.andro.indieschool.reclistapp.model.ItemModel;
 
 import java.util.ArrayList;
@@ -26,6 +29,7 @@ public class SecondActivity extends AppCompatActivity implements MainItemAdapter
     private MainItemAdapter adapter;
     private ArrayList<ItemModel> itemModelArrayList;
 
+    private Button btnNext;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,6 +55,27 @@ public class SecondActivity extends AppCompatActivity implements MainItemAdapter
 
         TextView tvAct = findViewById(R.id.tv_act);
         tvAct.setText("SECOND ACTIVITY");
+
+        btnNext = findViewById(R.id.btn_next);
+        btnNext.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showDialog();
+            }
+        });
+    }
+
+    private void showDialog() {
+        final ArrayList<Category> categories = new ArrayList<>();
+        categories.add(new Category("Teknologi", true));
+        categories.add(new Category("Ekonomi", false));
+        categories.add(new Category("Budaya", true));
+        categories.add(new Category("Sosial", false));
+        categories.add(new Category("Politik", false));
+        categories.add(new Category("Hukum", false));
+
+        CategoryDialogFragment.newInstance(categories)
+                .show(getSupportFragmentManager(), "dialog");
     }
 
     @Override

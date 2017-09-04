@@ -48,4 +48,17 @@ public class CategoryDialogFragment extends DialogFragment {
         recycler.setLayoutManager(new LinearLayoutManager(getContext()));
         recycler.setAdapter(new CategoryAdapter(categories));
     }
+
+    @Override
+    public void onResume() {
+        if (getDialog().getWindow() == null) {
+            return;
+        }
+        ViewGroup.LayoutParams params = getDialog().getWindow().getAttributes();
+        params.width = ViewGroup.LayoutParams.MATCH_PARENT;
+        params.height = ViewGroup.LayoutParams.WRAP_CONTENT;
+        getDialog().getWindow().setAttributes((android.view.WindowManager.LayoutParams) params);
+
+        super.onResume();
+    }
 }

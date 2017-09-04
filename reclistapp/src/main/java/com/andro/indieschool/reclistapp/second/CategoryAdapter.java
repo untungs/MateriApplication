@@ -47,6 +47,13 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
             super(itemView);
             textTitle = itemView.findViewById(R.id.text_category_title);
             checkBoxSelected = itemView.findViewById(R.id.checkbox_category_selected);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    checkBoxSelected.setChecked(!checkBoxSelected.isChecked());
+                }
+            });
         }
 
         void bindCategory(Category category) {

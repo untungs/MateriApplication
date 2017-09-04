@@ -33,7 +33,7 @@ public class MainItemAdapter extends RecyclerView.Adapter<MainItemAdapter.MainIt
     }
 
     public void addItem() {
-        modelArrayList.add(new ItemModel("Test " + (modelArrayList.size() + 1)));
+        modelArrayList.add(new ItemModel(String.valueOf(modelArrayList.size() + 1)));
         notifyItemInserted(getItemCount());
     }
 

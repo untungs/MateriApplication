@@ -17,10 +17,13 @@ import com.andro.indieschool.reclistapp.R;
 import com.andro.indieschool.reclistapp.main.item.MainItemAdapter;
 import com.andro.indieschool.reclistapp.model.ItemModel;
 import com.andro.indieschool.reclistapp.second.SecondActivity;
+import com.andro.indieschool.reclistapp.utils.PreferenceHelper;
 
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity implements MainItemAdapter.OnItemListener {
+
+    private static final String KEY_ITEMS = "KEY_ITEMS";
 
     private RecyclerView recyclerViewVertical;
     private RecyclerView recyclerViewHorizontal;
@@ -30,12 +33,18 @@ public class MainActivity extends AppCompatActivity implements MainItemAdapter.O
 
     private Button btnNext;
 
+    private PreferenceHelper preferences;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        preferences = PreferenceHelper.getInstance(getApplicationContext());
+        int items = preferences.getInt(KEY_ITEMS, 9);
+
         itemModelArrayList = new ArrayList<>();
-        for (int i = 0; i < 9; i++) {
+        for (int i = 0; i < items; i++) {
             itemModelArrayList.add(new ItemModel(String.valueOf( (i + 1) )));
         }
 
@@ -103,5 +112,11 @@ public class MainActivity extends AppCompatActivity implements MainItemAdapter.O
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onDestroy() {
+        preferences.putInt(KEY_ITEMS, adapter.getItemCount());
+        super.onDestroy();
     }
 }

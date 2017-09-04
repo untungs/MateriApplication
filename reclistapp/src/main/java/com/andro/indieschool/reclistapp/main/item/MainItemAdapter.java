@@ -32,6 +32,25 @@ public class MainItemAdapter extends RecyclerView.Adapter<MainItemAdapter.MainIt
         this.modelArrayList = modelArrayList;
     }
 
+    public void addItem() {
+        modelArrayList.add(new ItemModel("Test " + (modelArrayList.size() + 1)));
+        notifyItemInserted(getItemCount());
+    }
+
+    public void removeItem() {
+        int lastIndex = modelArrayList.size() - 1;
+
+        if (modelArrayList.size() > 0) {
+            modelArrayList.remove(lastIndex);
+            notifyItemRemoved(lastIndex);
+        }
+    }
+
+    public void setItems(ArrayList<ItemModel> models) {
+        modelArrayList = models;
+        notifyDataSetChanged();
+    }
+
     @Override
     public MainItemViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View rootView = LayoutInflater.from(context).inflate(R.layout.item_scroll, parent, false);

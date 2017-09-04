@@ -7,6 +7,7 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -76,5 +77,31 @@ public class MainActivity extends AppCompatActivity implements MainItemAdapter.O
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int itemId = item.getItemId();
+
+        switch (itemId) {
+            case R.id.action_add: {
+                adapter.addItem();
+                return true;
+            }
+            case R.id.action_remove: {
+                adapter.removeItem();
+                return true;
+            }
+            case R.id.action_reset: {
+                ArrayList<ItemModel> newModels = new ArrayList<>();
+                for (int i = 0; i < 9; i++) {
+                    newModels.add(new ItemModel(String.valueOf( (i + 1) )));
+                }
+                adapter.setItems(newModels);
+                return true;
+            }
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 }
